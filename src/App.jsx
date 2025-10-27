@@ -4,8 +4,14 @@ import Header from "./components/Header"
 import SideBar from "./components/SideBar"
 import Banner from "./components/Banner"
 import Galeria from "./components/Galeria"
+import fotos from "./fotos.json"
+import { useState } from "react"
+import ModalZoom from "./components/ModalZoom"
 
-function App() {
+const App = () => {
+
+  const [fotosState, setFotosState] = useState(fotos);
+  const [fotoZoom, setFotoZoom] = useState(null);
 
   const BackGroundColor = styled.div`
     background: linear-gradient(174.61deg, #041B33 4.16%, #04244F 48%, #154580 96.76%);
@@ -40,10 +46,11 @@ function App() {
             <SideBar />
             <GalleryContent>
               <Banner />
-              <Galeria />
+              <Galeria whenFotoZoom={foto => setFotoZoom(foto)} fotos={fotosState} />
             </GalleryContent>
           </MainContainer>
         </AppContainer>
+        <ModalZoom foto={fotoZoom} />
       </BackGroundColor>
     </>
   )
