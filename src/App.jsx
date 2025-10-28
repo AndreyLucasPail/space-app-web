@@ -36,6 +36,23 @@ const App = () => {
     flex-grow: 1;
   `
 
+  const whenToggleFavorite = (foto) => {
+    if (foto.id === fotoZoom?.id) {
+      setFotoZoom({
+        ...fotoZoom,
+        favorita: !fotoZoom.favorita,
+      });
+    }
+    setFotosState(
+      fotosState.map((galeryPhoto) => {
+        return {
+          ...galeryPhoto,
+          favorita: galeryPhoto.id === foto.id ? !galeryPhoto.favorita : galeryPhoto.favorita,
+        }
+      })
+    );
+  }
+
   return (
     <>
       <BackGroundColor>
@@ -46,11 +63,11 @@ const App = () => {
             <SideBar />
             <GalleryContent>
               <Banner />
-              <Galeria whenFotoZoom={foto => setFotoZoom(foto)} fotos={fotosState} />
+              <Galeria whenFotoZoom={foto => setFotoZoom(foto)} fotos={fotosState} whenToggleFavorite={whenToggleFavorite} />
             </GalleryContent>
           </MainContainer>
         </AppContainer>
-        <ModalZoom foto={fotoZoom} />
+        <ModalZoom foto={fotoZoom} whenToggleFavorite={whenToggleFavorite} />
       </BackGroundColor>
     </>
   )
